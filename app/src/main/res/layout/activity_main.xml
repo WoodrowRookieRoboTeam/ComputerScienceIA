@@ -12,7 +12,7 @@
         android:id="@+id/dailyPeriods"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity=""
+        android:layout_gravity="center"
         android:orientation="vertical" >
 
         <Button
@@ -40,31 +40,33 @@
             android:layout_height="100dp"
             android:text="" />
 
+
+
+        <LinearLayout
+            android:id="@+id/mainTabs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="135dp"
+                android:layout_height="135dp"
+                android:text="Calendar" />
+
+            <Button
+                android:layout_width="135dp"
+                android:layout_height="135dp"
+                android:text="Today" />
+
+            <Button
+                android:layout_width="135dp"
+                android:layout_height="135dp"
+                android:text="List" />
+
+        </LinearLayout>
+
     </LinearLayout>
-
-    <TableRow
-        android:id="@+id/mainTabs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:orientation="horizontal">
-
-        <Button
-            android:layout_width="135dp"
-            android:layout_height="135dp"
-            android:text="Calendar" />
-
-        <Button
-            android:layout_width="135dp"
-            android:layout_height="135dp"
-            android:text="Today" />
-
-        <Button
-            android:layout_width="135dp"
-            android:layout_height="135dp"
-            android:text="List" />
-
-    </TableRow>
 
 
 
