@@ -9,9 +9,10 @@ public class Assignment extends CalItem{
 
 
 
-    public Assignment(String name, String description, String AssignType, Date dueDate){
+    public Assignment(String name, String description, String assignType, Date dueDate){
         this.name = name;
         this.description = description;
+        this.assignType = assignType;
         this.dueDate = dueDate;
     }
 
