@@ -9,36 +9,59 @@
 
 
     <LinearLayout
-        android:id="@+id/dailyPeriods"
+        android:id="@+id/mainLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical" >
 
-        <Button
-            android:layout_width="250dp"
-            android:layout_height="100dp"
-            android:text="" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:orientation="horizontal">
 
-        <Button
-            android:layout_width="250dp"
-            android:layout_height="100dp"
-            android:text="" />
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="" />
 
-        <Button
-            android:layout_width="250dp"
-            android:layout_height="100dp"
-            android:text="" />
+        </LinearLayout>
 
-        <Button
-            android:layout_width="250dp"
-            android:layout_height="100dp"
-            android:text="" />
+        <LinearLayout
+            android:id="@+id/daily_periods"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible">
 
-        <Button
-            android:layout_width="250dp"
-            android:layout_height="100dp"
-            android:text="" />
+            <Button
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                android:text="" />
+
+            <Button
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                android:text="" />
+
+            <Button
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                android:text="" />
+
+            <Button
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                android:text="" />
+
+            <Button
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                android:text="" />
+
+        </LinearLayout>
 
 
 

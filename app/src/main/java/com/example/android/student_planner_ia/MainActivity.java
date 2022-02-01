@@ -4,8 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 
 public class MainActivity extends AppCompatActivity {
+
+    LinearLayout dailyPeriods = (LinearLayout) findViewById(R.id.daily_periods);
+    dailyPeriods.
 
     String[] classPeriods;
 
