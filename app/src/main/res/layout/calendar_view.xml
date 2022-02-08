@@ -7,7 +7,6 @@
     android:gravity="center"
     tools:context=".MainActivity">
 
-
     <LinearLayout
         android:id="@+id/mainLayout"
         android:layout_width="wrap_content"
@@ -38,42 +37,66 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/daily_periods"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical"
-            android:visibility="visible">
+            android:orientation="horizontal" >
 
-            <Button
-                android:id="@+id/button1"
-                android:layout_width="300dp"
-                android:layout_height="100dp"
-                android:text="" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="SUN"
+                android:textAlignment="center"
+                android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="300dp"
-                android:layout_height="100dp"
-                android:text="" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="MON"
+                android:textAlignment="center"
+                android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="300dp"
-                android:layout_height="100dp"
-                android:text="" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="TUES"
+                android:textAlignment="center"
+                android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/button4"
-                android:layout_width="300dp"
-                android:layout_height="100dp"
-                android:text="" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="WED"
+                android:textAlignment="center"
+                android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/button5"
-                android:layout_width="300dp"
-                android:layout_height="100dp"
-                android:text="" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="THURS"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="FRI"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="SAT"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+
 
         </LinearLayout>
 
@@ -104,8 +127,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
-
-
 
 </LinearLayout>

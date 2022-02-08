@@ -9,7 +9,8 @@ import android.widget.LinearLayout;
 public class MainActivity extends AppCompatActivity {
 
     LinearLayout dailyPeriods = (LinearLayout) findViewById(R.id.daily_periods);
-    dailyPeriods.
+
+    boolean isADay;
 
     String[] classPeriods;
 
