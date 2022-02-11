@@ -14,23 +14,33 @@
         android:layout_gravity="center"
         android:orientation="vertical" >
 
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
 
             <Button
                 android:id="@+id/open_settings"
                 android:layout_width="50dp"
                 android:layout_height="60dp"
-                android:layout_gravity="left"
                 android:text="" />
+
+            <TextView
+                android:layout_width="305dp"
+                android:layout_height="wrap_content"
+                android:text="Daily Schedule"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/add_class"
                 android:layout_width="50dp"
                 android:layout_height="60dp"
-                android:layout_gravity="right"
                 android:text="+"
                 android:textSize="24sp" />
 
@@ -88,17 +98,20 @@
             <Button
                 android:layout_width="135dp"
                 android:layout_height="135dp"
-                android:text="Calendar" />
+                android:text="Calendar"
+                android:onClick="showCalendar"/>
 
             <Button
                 android:layout_width="135dp"
                 android:layout_height="135dp"
-                android:text="Today" />
+                android:text="Today"
+                android:onClick="showDaily"/>
 
             <Button
                 android:layout_width="135dp"
                 android:layout_height="135dp"
-                android:text="List" />
+                android:text="List"
+                android:onClick="showAsList"/>
 
         </LinearLayout>
 

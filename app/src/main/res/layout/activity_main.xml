@@ -89,17 +89,20 @@
             <Button
                 android:layout_width="135dp"
                 android:layout_height="135dp"
-                android:text="Calendar" />
+                android:text="Calendar"
+                android:onClick="showCalendar"/>
 
             <Button
                 android:layout_width="135dp"
                 android:layout_height="135dp"
-                android:text="Today" />
+                android:text="Today"
+                android:onClick="showDaily"/>
 
             <Button
                 android:layout_width="135dp"
                 android:layout_height="135dp"
-                android:text="List" />
+                android:text="List"
+                android:onClick="showAsList"/>
 
         </LinearLayout>
 
