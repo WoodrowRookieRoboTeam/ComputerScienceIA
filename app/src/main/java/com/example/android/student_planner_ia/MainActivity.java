@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import java.util.List;
@@ -12,11 +13,18 @@ public class MainActivity extends AppCompatActivity {
 
     LinearLayout dailyPeriods = (LinearLayout) findViewById(R.id.daily_periods);
     List<Assignment> assignmentList;
+    List<Task> taskList;
+
+    Button button1View = (Button) findViewById(R.id.button1);
+    Button button2View = (Button) findViewById(R.id.button2);
+    Button button3View = (Button) findViewById(R.id.button3);
+    Button button4View = (Button) findViewById(R.id.button4);
+    Button button5View = (Button) findViewById(R.id.button5);
 
     boolean isADay;
 
     String[] classNumbers, classPeriods;
-
+    int[] assignNum, taskNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         classPeriods[6] = "IB Computer Science";
         classPeriods[7] = "IB Global Politics";
 
+        resetAssignments();
 
         //runProgram();
     }
@@ -58,8 +67,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showCalendar(View view){
-        for (Assignment assignment : assignMent
+        resetAssignments();
+        for (int i = 0; i < classNumbers.length; i++){
+            for (Assignment assignment : assignmentList){
+                if (assignment.classPeriod == classNumbers[i]){
+                    assignNum[i]++;
+                }
+            }
+            for (Task task : taskList){
+                if (task.classPeriod == classNumbers[i]){
+                    taskNum[i]++;
+                }
+            }
         }
+
+        button1View.setText(classPeriods);
+
         setContentView(R.layout.calendar_view);
     }
 
@@ -71,4 +94,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.assignment_list_view);
     }
 
+
+    public void resetAssignments(){
+        for (int i = 0; i < 7; i++){
+            assignNum[i] = 0;
+            taskNum[i] = 0;
+        }
+    }
 }
