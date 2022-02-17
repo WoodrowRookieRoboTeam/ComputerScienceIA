@@ -66,6 +66,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void assignmentButton(){
+
+    }
+
     public void showCalendar(View view){
         resetAssignments();
         for (int i = 0; i < classNumbers.length; i++){
