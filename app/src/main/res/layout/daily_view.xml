@@ -58,30 +58,35 @@
                 android:id="@+id/button1"
                 android:layout_width="300dp"
                 android:layout_height="100dp"
+                android:textAlignment="textStart"
                 android:text="" />
 
             <Button
                 android:id="@+id/button2"
                 android:layout_width="300dp"
                 android:layout_height="100dp"
+                android:textAlignment="textStart"
                 android:text="" />
 
             <Button
                 android:id="@+id/button3"
                 android:layout_width="300dp"
                 android:layout_height="100dp"
+                android:textAlignment="textStart"
                 android:text="" />
 
             <Button
                 android:id="@+id/button4"
                 android:layout_width="300dp"
                 android:layout_height="100dp"
+                android:textAlignment="textStart"
                 android:text="" />
 
             <Button
                 android:id="@+id/button5"
                 android:layout_width="300dp"
                 android:layout_height="100dp"
+                android:textAlignment="textStart"
                 android:text="" />
 
         </LinearLayout>

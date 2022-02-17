@@ -81,7 +81,18 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        button1View.setText(classPeriods);
+        button1View.setText("1A/B - " + classPeriods[0] + "\n\n" + taskNum[0] + " assignments \t" + taskNum[0] + " tasks");
+        if (isADay){
+            button2View.setText("2A - " + classPeriods[1] + "\n\n" + taskNum[1] + " assignments \t" + taskNum[1] + " tasks");
+            button3View.setText("3A - " + classPeriods[2] + "\n\n" + taskNum[2] + " assignments \t" + taskNum[2] + " tasks");
+            button4View.setText("4A - " + classPeriods[3] + "\n\n" + taskNum[3] + " assignments \t" + taskNum[3] + " tasks");
+        }
+        else{
+            button2View.setText("2B - " + classPeriods[4] + "\n\n" + taskNum[4] + " assignments \t" + taskNum[4] + " tasks");
+            button3View.setText("3B - " + classPeriods[5] + "\n\n" + taskNum[5] + " assignments \t" + taskNum[5] + " tasks");
+            button4View.setText("4B - " + classPeriods[6] + "\n\n" + taskNum[6] + " assignments \t" + taskNum[6] + " tasks");
+        }
+        button5View.setText("5A/B - " + classPeriods[7] + "\n\n" + taskNum[7] + " assignments \t" + taskNum[7] + " tasks");
 
         setContentView(R.layout.calendar_view);
     }
