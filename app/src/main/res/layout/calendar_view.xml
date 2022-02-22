@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:id="@+id/mainLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:orientation="vertical" >
@@ -110,29 +110,41 @@
 
 
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/mainTabs"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="bottom"
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/calendar_button"
                 android:layout_width="135dp"
                 android:layout_height="135dp"
-                android:text="Calendar" />
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:text="Calendar"
+                android:onClick="showCalendar"/>
 
             <Button
+                android:id="@+id/today_button"
                 android:layout_width="135dp"
                 android:layout_height="135dp"
-                android:text="Today" />
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:text="Today"
+                android:onClick="showDaily"/>
 
             <Button
+                android:id="@+id/list_button"
                 android:layout_width="135dp"
                 android:layout_height="135dp"
-                android:text="List" />
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:text="List"
+                android:onClick="showAsList"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 
