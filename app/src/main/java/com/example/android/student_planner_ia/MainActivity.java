@@ -11,15 +11,15 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    LinearLayout dailyPeriods = (LinearLayout) findViewById(R.id.daily_periods);
+    LinearLayout dailyPeriods;
     List<Assignment> assignmentList;
     List<Task> taskList;
 
-    Button button1View = (Button) findViewById(R.id.button1);
-    Button button2View = (Button) findViewById(R.id.button2);
-    Button button3View = (Button) findViewById(R.id.button3);
-    Button button4View = (Button) findViewById(R.id.button4);
-    Button button5View = (Button) findViewById(R.id.button5);
+    Button button1View;
+    Button button2View;
+    Button button3View;
+    Button button4View;
+    Button button5View;
 
     boolean isADay;
 
@@ -29,12 +29,28 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.daily_view);
+        setContentView(R.layout.daily_classes_view);
 
-        setABDay();
+
+
+        dailyPeriods = (LinearLayout) findViewById(R.id.daily_periods);
+        button1View = (Button) findViewById(R.id.button1);
+        button2View = (Button) findViewById(R.id.button2);
+        button3View = (Button) findViewById(R.id.button3);
+        button4View = (Button) findViewById(R.id.button4);
+        button5View = (Button) findViewById(R.id.button5);
+
+        isADay = true;
+
+        classNumbers = new String[5];
+        classPeriods = new String[8];
 
         classNumbers[0] = "1A/B";
         classNumbers[4] = "5A/B";
+
+        setABDay();
+
+
 
 
         // these need to be later replaced with the "createSchedule" function
@@ -71,7 +87,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showCalendar(View view){
+
+
+        setContentView(R.layout.calendar_view);
+    }
+
+    public void showDaily(View view){
         resetAssignments();
+
         for (int i = 0; i < classNumbers.length; i++){
             for (Assignment assignment : assignmentList){
                 if (assignment.classPeriod == classNumbers[i]){
@@ -85,24 +108,20 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        button1View.setText("1A/B - " + classPeriods[0] + "\n\n" + taskNum[0] + " assignments \t" + taskNum[0] + " tasks");
+        button1View.setText("1A/B - " + classPeriods[0] + "\n\n" + assignNum[0] + " assignments \t" + taskNum[0] + " tasks");
         if (isADay){
-            button2View.setText("2A - " + classPeriods[1] + "\n\n" + taskNum[1] + " assignments \t" + taskNum[1] + " tasks");
-            button3View.setText("3A - " + classPeriods[2] + "\n\n" + taskNum[2] + " assignments \t" + taskNum[2] + " tasks");
-            button4View.setText("4A - " + classPeriods[3] + "\n\n" + taskNum[3] + " assignments \t" + taskNum[3] + " tasks");
+            button2View.setText("2A - " + classPeriods[1] + "\n\n" + assignNum[1] + " assignments \t" + taskNum[1] + " tasks");
+            button3View.setText("3A - " + classPeriods[2] + "\n\n" + assignNum[2] + " assignments \t" + taskNum[2] + " tasks");
+            button4View.setText("4A - " + classPeriods[3] + "\n\n" + assignNum[3] + " assignments \t" + taskNum[3] + " tasks");
         }
         else{
-            button2View.setText("2B - " + classPeriods[4] + "\n\n" + taskNum[4] + " assignments \t" + taskNum[4] + " tasks");
-            button3View.setText("3B - " + classPeriods[5] + "\n\n" + taskNum[5] + " assignments \t" + taskNum[5] + " tasks");
-            button4View.setText("4B - " + classPeriods[6] + "\n\n" + taskNum[6] + " assignments \t" + taskNum[6] + " tasks");
+            button2View.setText("2B - " + classPeriods[4] + "\n\n" + assignNum[4] + " assignments \t" + taskNum[4] + " tasks");
+            button3View.setText("3B - " + classPeriods[5] + "\n\n" + assignNum[5] + " assignments \t" + taskNum[5] + " tasks");
+            button4View.setText("4B - " + classPeriods[6] + "\n\n" + assignNum[6] + " assignments \t" + taskNum[6] + " tasks");
         }
-        button5View.setText("5A/B - " + classPeriods[7] + "\n\n" + taskNum[7] + " assignments \t" + taskNum[7] + " tasks");
+        button5View.setText("5A/B - " + classPeriods[7] + "\n\n" + assignNum[7] + " assignments \t" + taskNum[7] + " tasks");
 
-        setContentView(R.layout.calendar_view);
-    }
-
-    public void showDaily(View view){
-        setContentView(R.layout.daily_view);
+        setContentView(R.layout.daily_classes_view);
     }
 
     public void showAsList(View view){

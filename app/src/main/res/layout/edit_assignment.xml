@@ -15,21 +15,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
-            android:text="Assignment Editor"
+            android:text="Item Editor"
             android:textSize="30dp"
-            android:layout_marginBottom="24dp"/>
+            />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginbottom="18dp">
+            >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
-                android:text="Assignment Name:"
+                android:text="Item Name:"
                 android:textSize="18dp" />
 
             <EditText
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginbottom="18dp">
+            >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginbottom="18dp">
+            >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -83,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginbottom="18dp">
+            >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -103,7 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginbottom="18dp">
+            >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -123,7 +123,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginbottom="18dp">
+            >
 
             <TextView
                 android:layout_width="wrap_content"
