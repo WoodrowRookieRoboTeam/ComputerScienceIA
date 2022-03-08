@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,8 +30,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.daily_classes_view);
 
+        assignmentList = new ArrayList<Assignment>();
+        taskList = new ArrayList<Task>();
 
 
         dailyPeriods = (LinearLayout) findViewById(R.id.daily_periods);
@@ -47,6 +49,14 @@ public class MainActivity extends AppCompatActivity {
 
         classNumbers[0] = "1A/B";
         classNumbers[4] = "5A/B";
+
+        assignNum = new int[8];
+        taskNum = new int[8];
+
+        for (int i = 0; i < assignNum.length; i++){
+            assignNum[i] = 0;
+            taskNum[i] = 0;
+        }
 
         setABDay();
 
@@ -65,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
 
         resetAssignments();
 
+        //showDaily();
+        setContentView(R.layout.daily_classes_view);
         //runProgram();
     }
 
@@ -94,20 +106,31 @@ public class MainActivity extends AppCompatActivity {
 
     public void showDaily(View view){
         resetAssignments();
-
+        /*
         for (int i = 0; i < classNumbers.length; i++){
-            for (Assignment assignment : assignmentList){
-                if (assignment.classPeriod == classNumbers[i]){
-                    assignNum[i]++;
+            if (assignmentList.size() > 0) {
+                for (Assignment assignment : assignmentList) {
+                    if (assignment.classPeriod == classNumbers[i]) {
+                        assignNum[i]++;
+                    }
                 }
             }
-            for (Task task : taskList){
-                if (task.classPeriod == classNumbers[i]){
-                    taskNum[i]++;
+            if (taskList.size() > 0) {
+                for (Task task : taskList) {
+                    if (task.classPeriod == classNumbers[i]) {
+                        taskNum[i]++;
+                    }
                 }
             }
-        }
+        }*/
 
+
+
+
+
+
+
+        button1View = (Button) findViewById(R.id.button1);
         button1View.setText("1A/B - " + classPeriods[0] + "\n\n" + assignNum[0] + " assignments \t" + taskNum[0] + " tasks");
         if (isADay){
             button2View.setText("2A - " + classPeriods[1] + "\n\n" + assignNum[1] + " assignments \t" + taskNum[1] + " tasks");
@@ -121,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
         }
         button5View.setText("5A/B - " + classPeriods[7] + "\n\n" + assignNum[7] + " assignments \t" + taskNum[7] + " tasks");
 
+        dailyPeriods = (LinearLayout) findViewById(R.id.daily_periods);
         setContentView(R.layout.daily_classes_view);
     }
 
