@@ -20,6 +20,25 @@
             />
 
         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="Assignment"
+                android:layout_marginRight="25dp" />
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:text="Task" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
