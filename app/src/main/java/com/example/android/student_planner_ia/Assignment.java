@@ -1,20 +1,22 @@
 package com.example.android.student_planner_ia;
 
+import java.sql.Time;
 import java.util.Date;
 
 public class Assignment extends CalItem{
 
-    String name, assignType, description, classPeriod;
+    String name, description, classPeriod;
     Date dueDate;
+    Time dueTime;
 
 
 
-    public Assignment(String name, String description, String assignType, Date dueDate, String classPeriod){
+    public Assignment(String name, String classPeriod, Date dueDate, Time dueTime, String description){
         this.name = name;
-        this.description = description;
-        this.assignType = assignType;
-        this.dueDate = dueDate;
         this.classPeriod = classPeriod;
+        this.dueDate = dueDate;
+        this.dueTime = dueTime;
+        this.description = description;
     }
 
     public void addTask(){

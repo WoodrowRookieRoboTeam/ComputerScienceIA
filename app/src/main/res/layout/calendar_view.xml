@@ -36,11 +36,12 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/add_class"
+                android:id="@+id/add_item"
                 android:layout_width="50dp"
                 android:layout_height="60dp"
                 android:text="+"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:onClick="newAssignment" />
 
         </LinearLayout>
 

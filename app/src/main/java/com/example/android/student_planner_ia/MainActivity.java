@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
     public void setABDay(){
         if (isADay){
             classNumbers[1] = "2A";
@@ -97,6 +99,9 @@ public class MainActivity extends AppCompatActivity {
     public void assignmentButton(){
 
     }
+
+
+    // Following 3 methods concern main three menu screens
 
     public void showCalendar(View view){
 
@@ -152,12 +157,39 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.assignment_list_view);
     }
 
+
+    // Following methods concern item creation
+
     public void newAssignment(View view){
+        setContentView(R.layout.edit_assignment);
+
+        Button createItem = (Button) findViewById(R.id.add_item);
 
     }
 
-    public void newTask(View view){
+    public void saveAssignment(View view){
+        EditText getName = (EditText) findViewById(R.id.assignment_name);
+        EditText getPeriod = (EditText) findViewById(R.id.assignment_period);
+        EditText getDate = (EditText) findViewById(R.id.assignment_date);
+        EditText getTime = (EditText) findViewById(R.id.assignment_time);
+        EditText getDescription = (EditText) findViewById(R.id.assignment_description);
 
+        assignmentList.add(new Assignment(getName.getText().toString(), getPeriod.getText().toString(), getDate.getText().toString(), getTime.getText().toString(), getDescription.getText().toString()));
+    }
+
+    public void newTask(View view){
+        setContentView(R.layout.edit_task);
+    }
+
+    public void saveTask(View view){
+        EditText getName = (EditText) findViewById(R.id.task_name);
+        EditText getPeriod = (EditText) findViewById(R.id.task_period);
+        EditText getAssociated = (EditText) findViewById(R.id.task_associated);
+        EditText getDate = (EditText) findViewById(R.id.task_date);
+        EditText getTime = (EditText) findViewById(R.id.task_time);
+        EditText getDescription = (EditText) findViewById(R.id.task_description);
+
+        taskList.add(new Task(getName.getText().toString(), getPeriod.getText().toString(), getAssociated.getText().toString(), getDate.getText().toString(), getTime.getText().toString(), getDescription.getText().toString()));
     }
 
 
