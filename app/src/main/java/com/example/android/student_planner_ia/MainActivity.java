@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < classNumbers.length; i++){
             if (assignmentList.size() > 0) {
                 for (Assignment assignment : assignmentList) {
-                    if (assignment.classPeriod == classNumbers[i]) {
+                    if (assignment.classPeriod.equals(classNumbers[i])) {
                         assignNum[i]++;
                     }
                 }
@@ -168,6 +168,9 @@ public class MainActivity extends AppCompatActivity {
         }
         Button button5View = (Button) findViewById(R.id.button5);
         button5View.setText("5A/B - " + classPeriods[7] + "\n\n" + assignNum[7] + " assignments \t" + taskNum[7] + " tasks");
+
+        Button allAssignmentView = (Button) findViewById(R.id.all_daily_assignments);
+        allAssignmentView.setText("View all Classes: \n\n" + assignmentList.size() + " assigments \t" + taskList.size() + " tasks");
     }
 
     public void showAsList(View view){
@@ -218,7 +221,23 @@ public class MainActivity extends AppCompatActivity {
         EditText getTime = (EditText) findViewById(R.id.task_time);
         EditText getDescription = (EditText) findViewById(R.id.task_description);
 
-        //taskList.add(new Task(getName.getText().toString(), getPeriod.getText().toString(), getAssociated.getText().toString(), getDate.getText().toString(), getTime.getText().toString(), getDescription.getText().toString()));
+        String setName = getName.getText().toString();
+        String setPeriod = getPeriod.getText().toString();
+        String setAssociated = getAssociated.getText().toString();
+        String setDescription = getDescription.getText().toString();
+
+        int day, month, year, hour, minute;
+        day = Integer.parseInt(getDate.getText().toString().substring(0, 2));
+        month = Integer.parseInt(getDate.getText().toString().substring(3, 5));
+        year = Integer.parseInt(getDate.getText().toString().substring(6, 10));
+        hour = Integer.parseInt(getTime.getText().toString().substring(0, 2));
+        minute = Integer.parseInt(getTime.getText().toString().substring(3, 4));
+
+        for (Task task : taskList){
+            if (task.name.equals(setAssociated))
+        }
+
+        taskList.add(new Task(setName, setPeriod, setAssociated, new Date(year, month, day, hour, minute), setDescription));
     }
 
 

@@ -60,7 +60,7 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="100dp"
+                    android:layout_height="200dp"
                     android:text="0" />
 
                 <Button
@@ -97,6 +97,14 @@
                     android:layout_height="100dp"
                     android:text=""
                     android:textAlignment="textStart" />
+
+                <Button
+                    android:id="@+id/all_daily_assignments"
+                    android:layout_width="300dp"
+                    android:layout_height="100dp"
+                    android:text=""
+                    android:textAlignment="textStart"
+                    android:onClick="showAsList" />
 
             </LinearLayout>
         </ScrollView>
