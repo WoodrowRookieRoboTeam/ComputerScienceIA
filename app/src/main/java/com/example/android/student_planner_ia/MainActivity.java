@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,33 +18,21 @@ public class MainActivity extends AppCompatActivity {
     List<Assignment> assignmentList;
     List<Task> taskList;
 
-    /*Button button1View;
-    Button button2View;
-    Button button3View;
-    Button button4View;
-    Button button5View;*/
-
     boolean isADay;
+    boolean isScheduleTemp;
 
     String[] classNumbers, classPeriods;
     int[] assignNum, taskNum;
+
+    Date currentDate = new Date(2022, 03, 23, 24, 30);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // initialize all variables
         assignmentList = new ArrayList<Assignment>();
         taskList = new ArrayList<Task>();
-
-
-        //dailyPeriods = (LinearLayout) findViewById(R.id.daily_periods);
-        /*button1View = (Button) findViewById(R.id.button1);
-        button2View = (Button) findViewById(R.id.button2);
-        button3View = (Button) findViewById(R.id.button3);
-        button4View = (Button) findViewById(R.id.button4);
-        button5View = (Button) findViewById(R.id.button5);*/
-
-        isADay = true;
 
         classNumbers = new String[5];
         classPeriods = new String[8];
@@ -59,26 +48,36 @@ public class MainActivity extends AppCompatActivity {
             taskNum[i] = 0;
         }
 
+        isScheduleTemp = true;
+        isADay = true; // temporary declaration
         setABDay();
 
 
 
 
-        // these need to be later replaced with the "createSchedule" function
-        classPeriods[0] = "Macroeconomics";
-        classPeriods[1] = "IB Film";
-        classPeriods[2] = "IB Math";
-        classPeriods[3] = "IB Literature";
-        classPeriods[4] = "IB History";
-        classPeriods[5] = "IB French";
-        classPeriods[6] = "IB Computer Science";
-        classPeriods[7] = "IB Global Politics";
+
 
         resetAssignments();
 
-        //showDaily();
-        setContentView(R.layout.daily_classes_view);
-        //runProgram();
+
+
+        if (isScheduleTemp == false){
+            setContentView(R.layout.create_schedule);
+        }
+        else {
+            // these need to be later replaced with the "createSchedule" function
+            classPeriods[0] = "Macroeconomics";
+            classPeriods[1] = "IB Film";
+            classPeriods[2] = "IB Math";
+            classPeriods[3] = "IB Literature";
+            classPeriods[4] = "IB History";
+            classPeriods[5] = "IB French";
+            classPeriods[6] = "IB Computer Science";
+            classPeriods[7] = "IB Global Politics";
+
+            //showDaily();
+            setContentView(R.layout.daily_classes_view);
+        }
     }
 
 
@@ -100,6 +99,24 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void saveSchedule(View view){
+        EditText[] getPeriods= new EditText[8];
+
+        getPeriods[0] = (EditText) findViewById(R.id.oneAB_class_name);
+        getPeriods[1] = (EditText) findViewById(R.id.twoA_class_name);
+        getPeriods[2] = (EditText) findViewById(R.id.threeA_class_name);
+        getPeriods[3] = (EditText) findViewById(R.id.fourA_class_name);
+        getPeriods[4] = (EditText) findViewById(R.id.fiveAB_class_name);
+        getPeriods[5] = (EditText) findViewById(R.id.twoB_class_name);
+        getPeriods[6] = (EditText) findViewById(R.id.threeB_class_name);
+        getPeriods[7] = (EditText) findViewById(R.id.fourB_class_name);
+
+        for(int i = 0; i < classPeriods.length; i++){
+            classPeriods[i] = getPeriods[i].getText().toString();
+        }
+
+        setContentView(R.layout.daily_classes_view);
+    }
 
     // Following 3 methods concern main three menu screens
 
@@ -174,7 +191,19 @@ public class MainActivity extends AppCompatActivity {
         EditText getTime = (EditText) findViewById(R.id.assignment_time);
         EditText getDescription = (EditText) findViewById(R.id.assignment_description);
 
-        assignmentList.add(new Assignment(getName.getText().toString(), getPeriod.getText().toString(), getDate.getText().toString(), getTime.getText().toString(), getDescription.getText().toString()));
+        String setName = getName.getText().toString();
+        String setPeriod = getPeriod.getText().toString();
+        String setDescription = getDescription.getText().toString();
+
+        int day, month, year, hour, minute;
+        day = Integer.parseInt(getDate.getText().toString().substring(0, 2));
+        month = Integer.parseInt(getDate.getText().toString().substring(3, 5));
+        year = Integer.parseInt(getDate.getText().toString().substring(6, 10));
+        hour = Integer.parseInt(getTime.getText().toString().substring(0, 2));
+        minute = Integer.parseInt(getTime.getText().toString().substring(3, 4));
+
+        assignmentList.add(new Assignment(setName, setPeriod, new Date(year, month, day, hour, minute), setDescription));
+        setContentView(R.layout.daily_classes_view);
     }
 
     public void newTask(View view){
@@ -189,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
         EditText getTime = (EditText) findViewById(R.id.task_time);
         EditText getDescription = (EditText) findViewById(R.id.task_description);
 
-        taskList.add(new Task(getName.getText().toString(), getPeriod.getText().toString(), getAssociated.getText().toString(), getDate.getText().toString(), getTime.getText().toString(), getDescription.getText().toString()));
+        //taskList.add(new Task(getName.getText().toString(), getPeriod.getText().toString(), getAssociated.getText().toString(), getDate.getText().toString(), getTime.getText().toString(), getDescription.getText().toString()));
     }
 
 

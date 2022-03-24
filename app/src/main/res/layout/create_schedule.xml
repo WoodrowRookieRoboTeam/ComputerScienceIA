@@ -15,9 +15,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
-            android:text="Assignment Editor"
+            android:text="Enter Class Schedule"
             android:textSize="30dp"
             />
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:text="1A/B: "
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/oneAB_class_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="enter class name here" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -25,17 +48,81 @@
             android:orientation="horizontal"
             >
 
-            <Button
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:text="Assignment"
-                android:layout_marginRight="25dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:text="2A: "
+                android:textSize="18dp" />
 
-            <Button
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:text="Task"
-                android:onClick="newTask" />
+            <EditText
+                android:id="@+id/twoA_class_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="enter class name here" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:text="3A: "
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/threeA_class_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="enter class name here" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:text="4A: "
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/fourA_class_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="enter class name here" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:text="5A/B: "
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/fiveAB_class_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="enter class name here" />
 
         </LinearLayout>
 
@@ -49,19 +136,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
-                android:text="Assignment Name:"
+                android:text="2B: "
                 android:textSize="18dp" />
 
             <EditText
-                android:id="@+id/assignment_name"
+                android:id="@+id/twoB_class_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Type here" />
+                android:hint="enter class name here" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             >
@@ -70,19 +157,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
-                android:text="Class Period:"
+                android:text="3B: "
                 android:textSize="18dp" />
 
             <EditText
-                android:id="@+id/assignment_period"
+                android:id="@+id/threeB_class_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Type here" />
+                android:hint="enter class name here" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             >
@@ -91,56 +178,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
-                android:text="Due Date:"
+                android:text="4B: "
                 android:textSize="18dp" />
 
             <EditText
-                android:id="@+id/assignment_date"
+                android:id="@+id/fourB_class_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="day/month/year - xx/xx/xxxx" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:text="Time of Day:"
-                android:textSize="18dp" />
-
-            <EditText
-                android:id="@+id/assignment_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="hour:minutes - xx:xx" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:text="Description:"
-                android:textSize="18dp" />
-
-            <EditText
-                android:id="@+id/assignment_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Enter description here" />
+                android:hint="enter class name here" />
 
         </LinearLayout>
 
@@ -161,7 +206,8 @@
                 android:layout_width="100dp"
                 android:layout_height="75dp"
                 android:text="Save"
-                android:onClick="saveAssignment"/>
+                android:gravity="center"
+                android:onClick="saveSchedule" />
 
         </LinearLayout>
 

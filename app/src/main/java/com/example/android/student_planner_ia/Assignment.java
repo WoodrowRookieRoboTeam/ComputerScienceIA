@@ -7,15 +7,13 @@ public class Assignment extends CalItem{
 
     String name, description, classPeriod;
     Date dueDate;
-    Time dueTime;
 
 
 
-    public Assignment(String name, String classPeriod, Date dueDate, Time dueTime, String description){
+    public Assignment(String name, String classPeriod, Date dueDate, String description){
         this.name = name;
         this.classPeriod = classPeriod;
         this.dueDate = dueDate;
-        this.dueTime = dueTime;
         this.description = description;
     }
 
