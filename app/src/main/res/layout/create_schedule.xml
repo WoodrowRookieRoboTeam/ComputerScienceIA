@@ -12,6 +12,7 @@
         >
 
         <TextView
+            android:id="@+id/create_schedule_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
@@ -196,6 +197,7 @@
             >
 
             <Button
+                android:id="@+id/cancel_schedule"
                 android:layout_width="100dp"
                 android:layout_height="75dp"
                 android:text="cancel"

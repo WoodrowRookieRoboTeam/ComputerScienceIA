@@ -12,7 +12,7 @@ public class Task extends CalItem{
         super();
     }
 
-    public Task(String name, String classPeriod, Assignment assign, Date dueDate, String Description){
+    public Task(String name, String classPeriod, Assignment assign, Date dueDate){
         this.name = name;
         this.classPeriod = classPeriod;
         this.dueDate = dueDate;

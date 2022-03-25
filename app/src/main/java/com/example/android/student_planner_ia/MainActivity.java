@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -63,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (isScheduleTemp == false){
             setContentView(R.layout.create_schedule);
+            Button cancelButton = (Button) findViewById(R.id.cancel_schedule);
+            cancelButton.setVisibility(View.INVISIBLE);
         }
         else {
             // these need to be later replaced with the "createSchedule" function
@@ -115,7 +118,20 @@ public class MainActivity extends AppCompatActivity {
             classPeriods[i] = getPeriods[i].getText().toString();
         }
 
+        assignmentList.clear();
+        taskList.clear();
+
         setContentView(R.layout.daily_classes_view);
+    }
+
+    public void resetSchedule(View view){
+        setContentView(R.layout.create_schedule);
+
+        TextView scheduleTitle = (TextView) findViewById(R.id.create_schedule_title);
+        scheduleTitle.setText("Reset Schedule");
+
+        Button cancelButton = (Button) findViewById(R.id.cancel_schedule);
+        cancelButton.setVisibility(View.VISIBLE);
     }
 
     // Following 3 methods concern main three menu screens
@@ -192,11 +208,9 @@ public class MainActivity extends AppCompatActivity {
         EditText getPeriod = (EditText) findViewById(R.id.assignment_period);
         EditText getDate = (EditText) findViewById(R.id.assignment_date);
         EditText getTime = (EditText) findViewById(R.id.assignment_time);
-        EditText getDescription = (EditText) findViewById(R.id.assignment_description);
 
         String setName = getName.getText().toString();
         String setPeriod = getPeriod.getText().toString();
-        String setDescription = getDescription.getText().toString();
 
         int day, month, year, hour, minute;
         day = Integer.parseInt(getDate.getText().toString().substring(0, 2));
@@ -205,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
         hour = Integer.parseInt(getTime.getText().toString().substring(0, 2));
         minute = Integer.parseInt(getTime.getText().toString().substring(3, 4));
 
-        assignmentList.add(new Assignment(setName, setPeriod, new Date(year, month, day, hour, minute), setDescription));
+        assignmentList.add(new Assignment(setName, setPeriod, new Date(year, month, day, hour, minute)));
         setContentView(R.layout.daily_classes_view);
     }
 
@@ -219,12 +233,10 @@ public class MainActivity extends AppCompatActivity {
         EditText getAssociated = (EditText) findViewById(R.id.task_associated);
         EditText getDate = (EditText) findViewById(R.id.task_date);
         EditText getTime = (EditText) findViewById(R.id.task_time);
-        EditText getDescription = (EditText) findViewById(R.id.task_description);
 
         String setName = getName.getText().toString();
         String setPeriod = getPeriod.getText().toString();
         String setAssociated = getAssociated.getText().toString();
-        String setDescription = getDescription.getText().toString();
 
         int day, month, year, hour, minute;
         day = Integer.parseInt(getDate.getText().toString().substring(0, 2));
@@ -233,11 +245,13 @@ public class MainActivity extends AppCompatActivity {
         hour = Integer.parseInt(getTime.getText().toString().substring(0, 2));
         minute = Integer.parseInt(getTime.getText().toString().substring(3, 4));
 
-        for (Task task : taskList){
-            if (task.name.equals(setAssociated))
+        for (Assignment assignment : assignmentList){
+            if (assignment.name.equals(setAssociated)){
+                taskList.add(new Task(setName, setPeriod, assignment, new Date(year, month, day, hour, minute)));
+            }
         }
 
-        taskList.add(new Task(setName, setPeriod, setAssociated, new Date(year, month, day, hour, minute), setDescription));
+
     }
 
 
