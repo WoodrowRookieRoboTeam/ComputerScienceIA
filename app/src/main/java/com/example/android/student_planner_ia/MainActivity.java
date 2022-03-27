@@ -2,6 +2,8 @@ package com.example.android.student_planner_ia;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,10 +17,15 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    SharedPreferences sharedPref;
+    SharedPreferences.Editor editor;
+
+
     //LinearLayout dailyPeriods;
     List<Assignment> assignmentList;
     List<Task> taskList;
 
+    boolean scheduleDone;
     boolean isADay;
     boolean isScheduleTemp;
 
@@ -31,16 +38,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Sets up shared preference
+        sharedPref = getPreferences(Context.MODE_PRIVATE);
+        editor = sharedPref.edit();
+
+        //sharedPref.edit().clear().commit();
+
+        scheduleDone = sharedPref.getBoolean("scheduleDone", false);
+
         // initialize all variables
         assignmentList = new ArrayList<Assignment>();
         taskList = new ArrayList<Task>();
 
-        classNumbers = new String[5];
-        classPeriods = new String[8];
+        classNumbers = new String[5]; // 5 class periods in a day
+        classPeriods = new String[8]; // 8 total school classes
 
+        // 1st and 5th period occur everyday regardless of whether it is an A or B day
         classNumbers[0] = "1A/B";
         classNumbers[4] = "5A/B";
 
+        // List of how many assignments and tasks there are for each class period
         assignNum = new int[8];
         taskNum = new int[8];
 
@@ -62,13 +79,26 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        if (isScheduleTemp == false){
+        if (scheduleDone == false){
             setContentView(R.layout.create_schedule);
             Button cancelButton = (Button) findViewById(R.id.cancel_schedule);
             cancelButton.setVisibility(View.INVISIBLE);
+            scheduleDone = true;
+            editor.putBoolean("scheduleDone", true).apply();
         }
         else {
             // these need to be later replaced with the "createSchedule" function
+
+            classPeriods[0] = sharedPref.getString("classPeriods[0]", "Wrong");
+            classPeriods[1] = sharedPref.getString(classPeriods[1], "Wrong");
+            classPeriods[2] = sharedPref.getString(classPeriods[2], "Wrong");
+            classPeriods[3] = sharedPref.getString(classPeriods[3], "Wrong");
+            classPeriods[4] = sharedPref.getString(classPeriods[4], "Wrong");
+            classPeriods[5] = sharedPref.getString(classPeriods[5], "Wrong");
+            classPeriods[6] = sharedPref.getString(classPeriods[6], "Wrong");
+            classPeriods[7] = sharedPref.getString(classPeriods[7], "Wrong");
+
+            /*
             classPeriods[0] = "Macroeconomics";
             classPeriods[1] = "IB Film";
             classPeriods[2] = "IB Math";
@@ -77,14 +107,15 @@ public class MainActivity extends AppCompatActivity {
             classPeriods[5] = "IB French";
             classPeriods[6] = "IB Computer Science";
             classPeriods[7] = "IB Global Politics";
-
+            */
             //showDaily();
             setContentView(R.layout.daily_classes_view);
+            displayDaily();
         }
     }
 
 
-
+    // Checks whether it is an A or B day and adjusts daily schedule accordingly
     public void setABDay(){
         if (isADay){
             classNumbers[1] = "2A";
@@ -98,9 +129,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void assignmentButton(){
 
-    }
+    // Following 2 methods concern creation and editing of schedule
 
     public void saveSchedule(View view){
         EditText[] getPeriods= new EditText[8];
@@ -116,12 +146,14 @@ public class MainActivity extends AppCompatActivity {
 
         for(int i = 0; i < classPeriods.length; i++){
             classPeriods[i] = getPeriods[i].getText().toString();
+            editor.putString(classPeriods[i], getPeriods[i].getText().toString()).apply();
         }
 
         assignmentList.clear();
         taskList.clear();
 
         setContentView(R.layout.daily_classes_view);
+        displayDaily();
     }
 
     public void resetSchedule(View view){
@@ -133,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
         Button cancelButton = (Button) findViewById(R.id.cancel_schedule);
         cancelButton.setVisibility(View.VISIBLE);
     }
+
 
     // Following 3 methods concern main three menu screens
 
@@ -164,6 +197,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        displayDaily();
+    }
+
+    public void displayDaily(){
         Button button1View = (Button) findViewById(R.id.button1);
         button1View.setText("1A/B - " + classPeriods[0] + "\n\n" + assignNum[0] + " assignments \t" + taskNum[0] + " tasks");
         if (isADay){
