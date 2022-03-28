@@ -11,6 +11,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -67,16 +71,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         isScheduleTemp = true;
-        isADay = true; // temporary declaration
+        isADay = false; // temporary declaration
         setABDay();
 
 
-
-
-
-
         resetAssignments();
-
 
 
         if (scheduleDone == false){
@@ -89,14 +88,14 @@ public class MainActivity extends AppCompatActivity {
         else {
             // these need to be later replaced with the "createSchedule" function
 
-            classPeriods[0] = sharedPref.getString("classPeriods[0]", "Wrong");
-            classPeriods[1] = sharedPref.getString(classPeriods[1], "Wrong");
-            classPeriods[2] = sharedPref.getString(classPeriods[2], "Wrong");
-            classPeriods[3] = sharedPref.getString(classPeriods[3], "Wrong");
-            classPeriods[4] = sharedPref.getString(classPeriods[4], "Wrong");
-            classPeriods[5] = sharedPref.getString(classPeriods[5], "Wrong");
-            classPeriods[6] = sharedPref.getString(classPeriods[6], "Wrong");
-            classPeriods[7] = sharedPref.getString(classPeriods[7], "Wrong");
+            classPeriods[0] = sharedPref.getString("classPeriods[0]", "Economics");
+            classPeriods[1] = sharedPref.getString(classPeriods[1], "Film");
+            classPeriods[2] = sharedPref.getString(classPeriods[2], "Math");
+            classPeriods[3] = sharedPref.getString(classPeriods[3], "English");
+            classPeriods[4] = sharedPref.getString(classPeriods[4], "History");
+            classPeriods[5] = sharedPref.getString(classPeriods[5], "French");
+            classPeriods[6] = sharedPref.getString(classPeriods[6], "Computer Science");
+            classPeriods[7] = sharedPref.getString(classPeriods[7], "Global Politics");
 
             /*
             classPeriods[0] = "Macroeconomics";
@@ -114,6 +113,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /*
+    public void setList(String key, List list){
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+
+        editor.putString(key, json);
+    }
+
+    public List getList(){
+        List list;
+        String serializedObject = sharedPref.getString(, null);
+        if (serializedObject != null){
+            Gson gson = new Gson();
+            Type type = new TypeToken<List>(){}.getType();
+            list = gson.fromJson(serializedObject, type);
+        }
+    }*/
 
     // Checks whether it is an A or B day and adjusts daily schedule accordingly
     public void setABDay(){
@@ -213,14 +229,14 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             Button button2View = (Button) findViewById(R.id.button2);
-            button2View.setText("2B - " + classPeriods[4] + "\n\n" + assignNum[4] + " assignments \t" + taskNum[4] + " tasks");
+            button2View.setText("2B - " + classPeriods[5] + "\n\n" + assignNum[5] + " assignments \t" + taskNum[5] + " tasks");
             Button button3View = (Button) findViewById(R.id.button3);
-            button3View.setText("3B - " + classPeriods[5] + "\n\n" + assignNum[5] + " assignments \t" + taskNum[5] + " tasks");
+            button3View.setText("3B - " + classPeriods[6] + "\n\n" + assignNum[6] + " assignments \t" + taskNum[6] + " tasks");
             Button button4View = (Button) findViewById(R.id.button4);
-            button4View.setText("4B - " + classPeriods[6] + "\n\n" + assignNum[6] + " assignments \t" + taskNum[6] + " tasks");
+            button4View.setText("4B - " + classPeriods[7] + "\n\n" + assignNum[7] + " assignments \t" + taskNum[7] + " tasks");
         }
         Button button5View = (Button) findViewById(R.id.button5);
-        button5View.setText("5A/B - " + classPeriods[7] + "\n\n" + assignNum[7] + " assignments \t" + taskNum[7] + " tasks");
+        button5View.setText("5A/B - " + classPeriods[4] + "\n\n" + assignNum[4] + " assignments \t" + taskNum[4] + " tasks");
 
         Button allAssignmentView = (Button) findViewById(R.id.all_daily_assignments);
         allAssignmentView.setText("View all Classes: \n\n" + assignmentList.size() + " assigments \t" + taskList.size() + " tasks");
@@ -258,6 +274,7 @@ public class MainActivity extends AppCompatActivity {
 
         assignmentList.add(new Assignment(setName, setPeriod, new Date(year, month, day, hour, minute)));
         setContentView(R.layout.daily_classes_view);
+        displayDaily();
     }
 
     public void newTask(View view){
@@ -287,6 +304,8 @@ public class MainActivity extends AppCompatActivity {
                 taskList.add(new Task(setName, setPeriod, assignment, new Date(year, month, day, hour, minute)));
             }
         }
+        setContentView(R.layout.daily_classes_view);
+        displayDaily();
 
 
     }

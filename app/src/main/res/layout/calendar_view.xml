@@ -60,9 +60,10 @@
                 android:textSize="24sp" />
 
             <TextView
+                android:id="@+id/month_text_view"
                 android:layout_width="245dp"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:text="March 2022"
                 android:textAlignment="center"
                 android:textSize="24sp"
                 android:textStyle="bold" />
