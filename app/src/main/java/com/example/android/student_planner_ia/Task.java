@@ -5,16 +5,17 @@ import java.util.Date;
 
 public class Task extends CalItem{
 
-    public String name, classPeriod;
+    public String name, classPeriod, assignment;
     Date dueDate;
 
     public Task(){
         super();
     }
 
-    public Task(String name, String classPeriod, Assignment assign, Date dueDate){
+    public Task(String name, String classPeriod, String assignment, Date dueDate){
         this.name = name;
         this.classPeriod = classPeriod;
+        this.assignment = assignment;
         this.dueDate = dueDate;
 
     }

@@ -16,6 +16,8 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -33,14 +35,19 @@ public class MainActivity extends AppCompatActivity {
     boolean isADay;
     boolean isScheduleTemp;
 
-    String[] classNumbers, classPeriods;
+    String[] classNumbers, classPeriods, classKeys;
     int[] assignNum, taskNum;
 
-    Date currentDate = new Date(2022, 03, 23, 24, 30);
+    Date currentDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        currentDate = new Date();
+
+
+
 
         // Sets up shared preference
         sharedPref = getPreferences(Context.MODE_PRIVATE);
@@ -56,6 +63,16 @@ public class MainActivity extends AppCompatActivity {
 
         classNumbers = new String[5]; // 5 class periods in a day
         classPeriods = new String[8]; // 8 total school classes
+        classKeys = new String[8];
+
+        classKeys[0] = "class0";
+        classKeys[1] = "class1";
+        classKeys[2] = "class2";
+        classKeys[3] = "class3";
+        classKeys[4] = "class4";
+        classKeys[5] = "class5";
+        classKeys[6] = "class6";
+        classKeys[7] = "class7";
 
         // 1st and 5th period occur everyday regardless of whether it is an A or B day
         classNumbers[0] = "1A/B";
@@ -71,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         isScheduleTemp = true;
-        isADay = false; // temporary declaration
+        isADay = true; // temporary declaration
         setABDay();
 
 
@@ -88,14 +105,14 @@ public class MainActivity extends AppCompatActivity {
         else {
             // these need to be later replaced with the "createSchedule" function
 
-            classPeriods[0] = sharedPref.getString("classPeriods[0]", "Economics");
-            classPeriods[1] = sharedPref.getString(classPeriods[1], "Film");
-            classPeriods[2] = sharedPref.getString(classPeriods[2], "Math");
-            classPeriods[3] = sharedPref.getString(classPeriods[3], "English");
-            classPeriods[4] = sharedPref.getString(classPeriods[4], "History");
-            classPeriods[5] = sharedPref.getString(classPeriods[5], "French");
-            classPeriods[6] = sharedPref.getString(classPeriods[6], "Computer Science");
-            classPeriods[7] = sharedPref.getString(classPeriods[7], "Global Politics");
+            classPeriods[0] = sharedPref.getString("class0", "Economics");
+            classPeriods[1] = sharedPref.getString("class1", "Film");
+            classPeriods[2] = sharedPref.getString("class2", "Math");
+            classPeriods[3] = sharedPref.getString("class3", "English");
+            classPeriods[4] = sharedPref.getString("class4", "History");
+            classPeriods[5] = sharedPref.getString("class5", "French");
+            classPeriods[6] = sharedPref.getString("class6", "Computer Science");
+            classPeriods[7] = sharedPref.getString("class7", "Global Politics");
 
             /*
             classPeriods[0] = "Macroeconomics";
@@ -160,10 +177,11 @@ public class MainActivity extends AppCompatActivity {
         getPeriods[6] = (EditText) findViewById(R.id.threeB_class_name);
         getPeriods[7] = (EditText) findViewById(R.id.fourB_class_name);
 
-        for(int i = 0; i < classPeriods.length; i++){
+        for (int i = 0; i < classPeriods.length; i++) {
             classPeriods[i] = getPeriods[i].getText().toString();
-            editor.putString(classPeriods[i], getPeriods[i].getText().toString()).apply();
+            editor.putString(classKeys[i], getPeriods[i].getText().toString()).apply();
         }
+
 
         assignmentList.clear();
         taskList.clear();
@@ -246,6 +264,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.assignment_list_view);
     }
 
+    public void listItems(){
+        for (Assignment assignment : assignmentList){
+            for (Task task : taskList){
+                if (task.assignment.equals(assignment.name)){
+
+                }
+            }
+        }
+    }
+
 
     // Following methods concern item creation
 
@@ -299,11 +327,8 @@ public class MainActivity extends AppCompatActivity {
         hour = Integer.parseInt(getTime.getText().toString().substring(0, 2));
         minute = Integer.parseInt(getTime.getText().toString().substring(3, 4));
 
-        for (Assignment assignment : assignmentList){
-            if (assignment.name.equals(setAssociated)){
-                taskList.add(new Task(setName, setPeriod, assignment, new Date(year, month, day, hour, minute)));
-            }
-        }
+        taskList.add(new Task(setName, setPeriod, setAssociated, new Date(year, month, day, hour, minute)));
+
         setContentView(R.layout.daily_classes_view);
         displayDaily();
 
@@ -316,5 +341,20 @@ public class MainActivity extends AppCompatActivity {
             assignNum[i] = 0;
             taskNum[i] = 0;
         }
+    }
+
+    public void sortItems(){
+        Collections.sort(assignmentList, new Comparator<Assignment>() {
+            public int compare(Assignment a, Assignment b) {
+                return a.dueDate.compareTo(b.dueDate);
+            }
+        });
+
+        Collections.sort(taskList, new Comparator<Task>() {
+            public int compare(Task a, Task b) {
+                return a.dueDate.compareTo(b.dueDate);
+            }
+        });
+
     }
 }
