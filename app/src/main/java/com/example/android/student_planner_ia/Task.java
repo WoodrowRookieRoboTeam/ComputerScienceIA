@@ -5,7 +5,8 @@ import java.util.Date;
 
 public class Task extends CalItem{
 
-    public String name, classPeriod, assignment;
+    public String name, classPeriod, assignment, key;
+    boolean isSorted;
     Date dueDate;
 
     public Task(){
@@ -17,8 +18,13 @@ public class Task extends CalItem{
         this.classPeriod = classPeriod;
         this.assignment = assignment;
         this.dueDate = dueDate;
+        isSorted = false;
 
+        this.key = this.name + "Key";
     }
 
+    public void setSorted(boolean newSort){
+        isSorted = newSort;
+    }
 
 }

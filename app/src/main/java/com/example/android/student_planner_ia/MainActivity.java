@@ -6,9 +6,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -16,6 +18,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -31,20 +34,35 @@ public class MainActivity extends AppCompatActivity {
     List<Assignment> assignmentList;
     List<Task> taskList;
 
+    List<String> assignmentKeys, taskKeys;
+
     boolean scheduleDone;
     boolean isADay;
     boolean isScheduleTemp;
 
     String[] classNumbers, classPeriods, classKeys;
     int[] assignNum, taskNum;
+    int assignNet, taskNet;
 
     Date currentDate;
+    Calendar calendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         currentDate = new Date();
+        calendar = Calendar.getInstance();
+
+        if (calendar.get(Calendar.DAY_OF_WEEK) == 2 || calendar.get(Calendar.DAY_OF_WEEK) == 4 || calendar.get(Calendar.DAY_OF_WEEK) == 7){
+            isADay = true;
+        }
+        else if (calendar.get(Calendar.DAY_OF_WEEK) == 1 || calendar.get(Calendar.DAY_OF_WEEK) == 3 || calendar.get(Calendar.DAY_OF_WEEK) == 5){
+            isADay = false;
+        }
+        else if (calendar.get(Calendar.DAY_OF_WEEK) == 6){
+            // add full list of dates here
+        }
 
 
 
@@ -87,6 +105,9 @@ public class MainActivity extends AppCompatActivity {
             taskNum[i] = 0;
         }
 
+        assignNet = 0;
+        taskNet = 0;
+
         isScheduleTemp = true;
         isADay = true; // temporary declaration
         setABDay();
@@ -105,48 +126,30 @@ public class MainActivity extends AppCompatActivity {
         else {
             // these need to be later replaced with the "createSchedule" function
 
-            classPeriods[0] = sharedPref.getString("class0", "Economics");
-            classPeriods[1] = sharedPref.getString("class1", "Film");
-            classPeriods[2] = sharedPref.getString("class2", "Math");
-            classPeriods[3] = sharedPref.getString("class3", "English");
-            classPeriods[4] = sharedPref.getString("class4", "History");
-            classPeriods[5] = sharedPref.getString("class5", "French");
-            classPeriods[6] = sharedPref.getString("class6", "Computer Science");
-            classPeriods[7] = sharedPref.getString("class7", "Global Politics");
+            for (int i = 0; i < classPeriods.length; i++){
+                classPeriods[i] = sharedPref.getString("class" + i, "Failed to retrieve class");
+            }
 
+            assignNet = sharedPref.getInt("assignTotal", -1);
+            taskNet = sharedPref.getInt("taskTotal", -1);
             /*
-            classPeriods[0] = "Macroeconomics";
-            classPeriods[1] = "IB Film";
-            classPeriods[2] = "IB Math";
-            classPeriods[3] = "IB Literature";
-            classPeriods[4] = "IB History";
-            classPeriods[5] = "IB French";
-            classPeriods[6] = "IB Computer Science";
-            classPeriods[7] = "IB Global Politics";
+            for (int i = 0; i < assignNet; i++){
+                Gson gson = new Gson();
+                String json = sharedPref.getString("assignKey" + i, "failed to retrieve assignment");
+                assignmentList.add(gson.fromJson(json, Assignment.class));
+            }
+
+            for (int i = 0; i < taskNet; i++){
+                Gson gson = new Gson();
+                String json = sharedPref.getString("taskKey" + i, "failed to retrieve task");
+                taskList.add(gson.fromJson(json, Task.class));
+            }
             */
             //showDaily();
             setContentView(R.layout.daily_classes_view);
             displayDaily();
         }
     }
-
-    /*
-    public void setList(String key, List list){
-        Gson gson = new Gson();
-        String json = gson.toJson(list);
-
-        editor.putString(key, json);
-    }
-
-    public List getList(){
-        List list;
-        String serializedObject = sharedPref.getString(, null);
-        if (serializedObject != null){
-            Gson gson = new Gson();
-            Type type = new TypeToken<List>(){}.getType();
-            list = gson.fromJson(serializedObject, type);
-        }
-    }*/
 
     // Checks whether it is an A or B day and adjusts daily schedule accordingly
     public void setABDay(){
@@ -257,18 +260,44 @@ public class MainActivity extends AppCompatActivity {
         button5View.setText("5A/B - " + classPeriods[4] + "\n\n" + assignNum[4] + " assignments \t" + taskNum[4] + " tasks");
 
         Button allAssignmentView = (Button) findViewById(R.id.all_daily_assignments);
-        allAssignmentView.setText("View all Classes: \n\n" + assignmentList.size() + " assigments \t" + taskList.size() + " tasks");
+        allAssignmentView.setText("View all Classes: \n\n" + assignNet + " assigments \t" + taskNet + " tasks");
     }
 
     public void showAsList(View view){
         setContentView(R.layout.assignment_list_view);
+
+        listItems();
     }
 
     public void listItems(){
+        LinearLayout listLayout = findViewById(R.id.assignment_list);
+
+        List<TextView> assignIcons = new ArrayList<TextView>();
+        List<TextView> taskIcons = new ArrayList<TextView>();
+
+        int a = 0;
+        int t = 0;
         for (Assignment assignment : assignmentList){
             for (Task task : taskList){
-                if (task.assignment.equals(assignment.name)){
+                if (task.isSorted != true){
+                    if (assignment.dueDate.compareTo(task.dueDate) < 0){
+                        assignIcons.add(new TextView(this));
 
+                        assignIcons.get(a).setLayoutParams(new LinearLayout.LayoutParams(300, 100));
+                        assignIcons.get(a).setText(assignment.name + "\n\n" + assignment.dueDate.getHours() + ":" + assignment.dueDate.getMinutes() + "\n" + assignment.dueDate.getDay() + "/" + assignment.dueDate.getMonth() + "/" + assignment.dueDate.getYear() + "\t" + assignment.classPeriod);
+
+                        a++;
+                        break;
+                    }
+                    else{
+                        taskIcons.add(new TextView(this));
+
+                        taskIcons.get(t).setLayoutParams(new LinearLayout.LayoutParams(300, 100));
+                        taskIcons.get(t).setText(task.name + "\n\n" + task.dueDate.getHours() + ":" + task.dueDate.getMinutes() + "\n" + task.dueDate.getDay() + "/" + task.dueDate.getMonth() + "/" + task.dueDate.getYear() + "\t" + task.classPeriod + "\n\nfor assignment " + task.assignment);
+
+                        task.setSorted(true);
+                        t++;
+                    }
                 }
             }
         }
@@ -302,6 +331,7 @@ public class MainActivity extends AppCompatActivity {
 
         assignmentList.add(new Assignment(setName, setPeriod, new Date(year, month, day, hour, minute)));
         setContentView(R.layout.daily_classes_view);
+        sortItems();
         displayDaily();
     }
 
@@ -330,6 +360,7 @@ public class MainActivity extends AppCompatActivity {
         taskList.add(new Task(setName, setPeriod, setAssociated, new Date(year, month, day, hour, minute)));
 
         setContentView(R.layout.daily_classes_view);
+        sortItems();
         displayDaily();
 
 
@@ -344,17 +375,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sortItems(){
+        assignmentKeys.clear();
         Collections.sort(assignmentList, new Comparator<Assignment>() {
             public int compare(Assignment a, Assignment b) {
                 return a.dueDate.compareTo(b.dueDate);
             }
         });
+        assignNet = assignmentList.size();
+        editor.putInt("assignTotal", assignNet).apply();
+        int a = 0;
+        for (Assignment assignment : assignmentList){
+            Gson gson = new Gson();
+            assignmentKeys.add(gson.toJson(assignment));
+            editor.putString("assignKey" + a, assignmentKeys.get(a)).apply();
+            a++;
 
+        }
+
+        taskKeys.clear();
         Collections.sort(taskList, new Comparator<Task>() {
             public int compare(Task a, Task b) {
                 return a.dueDate.compareTo(b.dueDate);
             }
         });
+        taskNet = taskList.size();
+        editor.putInt("taskTotal", taskNet).apply();
+        int t = 0;
+        for (Task task : taskList){
+            Gson gson = new Gson();
+            taskKeys.add(gson.toJson(task));
+            editor.putString("taskKey" + t, taskKeys.get(t)).apply();
+            t++;
+        }
 
     }
 }

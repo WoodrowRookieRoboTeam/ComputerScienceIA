@@ -3,9 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/ComputerScienceIA/app/src/main/res/layout/assignment_list_view.xml" value="0.2755208333333333" />
         <entry key="..\:/ComputerScienceIA/app/src/main/res/layout/calendar_cell.xml" value="0.22" />
         <entry key="..\:/ComputerScienceIA/app/src/main/res/layout/calendar_view.xml" value="0.22" />
         <entry key="..\:/ComputerScienceIA/app/src/main/res/layout/create_schedule.xml" value="0.14722222222222223" />
+        <entry key="..\:/ComputerScienceIA/app/src/main/res/layout/daily_classes_view.xml" value="0.2755208333333333" />
+        <entry key="..\:/ComputerScienceIA/app/src/main/res/layout/edit_assignment.xml" value="0.1453900709219858" />
+        <entry key="..\:/ComputerScienceIA/app/src/main/res/layout/edit_task.xml" value="0.1453900709219858" />
         <entry key="..\:/Users/4184376/Documents/IBCSHL2/IA - Student Planner/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/4184376/Documents/IBCSHL2/IA - Student Planner/app/src/main/res/layout/assignment_list_view.xml" value="0.22" />
         <entry key="..\:/Users/4184376/Documents/IBCSHL2/IA - Student Planner/app/src/main/res/layout/calendar_view.xml" value="0.25" />
