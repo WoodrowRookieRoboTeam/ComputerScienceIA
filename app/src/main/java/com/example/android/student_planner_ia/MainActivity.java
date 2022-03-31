@@ -120,8 +120,7 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.create_schedule);
             Button cancelButton = (Button) findViewById(R.id.cancel_schedule);
             cancelButton.setVisibility(View.INVISIBLE);
-            scheduleDone = true;
-            editor.putBoolean("scheduleDone", true).apply();
+
         }
         else {
             // these need to be later replaced with the "createSchedule" function
@@ -188,6 +187,9 @@ public class MainActivity extends AppCompatActivity {
 
         assignmentList.clear();
         taskList.clear();
+
+        scheduleDone = true;
+        editor.putBoolean("scheduleDone", true).apply();
 
         setContentView(R.layout.daily_classes_view);
         displayDaily();
