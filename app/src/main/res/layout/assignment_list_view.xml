@@ -48,11 +48,20 @@
 
         <ScrollView
             android:layout_width="wrap_content"
-            android:layout_height="400dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center" >
+
+
+
+        </ScrollView>
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
             android:layout_gravity="center" >
 
             <LinearLayout
-                android:id="@+id/assignment_list"
+                android:id="@+id/task_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

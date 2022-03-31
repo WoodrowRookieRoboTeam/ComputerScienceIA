@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         taskNet = 0;
 
         isScheduleTemp = true;
-        isADay = true; // temporary declaration
+        //isADay = true; // temporary declaration
         setABDay();
 
 
@@ -362,7 +362,7 @@ public class MainActivity extends AppCompatActivity {
         taskList.add(new Task(setName, setPeriod, setAssociated, new Date(year, month, day, hour, minute)));
 
         setContentView(R.layout.daily_classes_view);
-        sortItems();
+        //sortItems();
         displayDaily();
 
 
@@ -378,11 +378,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void sortItems(){
         assignmentKeys.clear();
-        Collections.sort(assignmentList, new Comparator<Assignment>() {
-            public int compare(Assignment a, Assignment b) {
-                return a.dueDate.compareTo(b.dueDate);
-            }
-        });
+        if (assignmentList.size() > 1) {
+            Collections.sort(assignmentList, new Comparator<Assignment>() {
+                public int compare(Assignment a, Assignment b) {
+                    return a.dueDate.compareTo(b.dueDate);
+                }
+            });
+        }
         assignNet = assignmentList.size();
         editor.putInt("assignTotal", assignNet).apply();
         int a = 0;
