@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -272,6 +273,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void listItems(){
+
+        ArrayList<Assignment> assignView = new ArrayList<Assignment>();
+
+        AssignmentAdapter assignAdapter = new AssignmentAdapter(this, assignView);
+
+        ListView assignLV = (ListView) findViewById(R.id.assignment_list);
+
+        assignLV.setAdapter(assignAdapter);
+
+        /*
         LinearLayout listLayout = findViewById(R.id.assignment_list);
 
         List<TextView> assignIcons = new ArrayList<TextView>();
@@ -302,7 +313,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-        }
+        }*/
     }
 
 
@@ -333,7 +344,7 @@ public class MainActivity extends AppCompatActivity {
 
         assignmentList.add(new Assignment(setName, setPeriod, new Date(year, month, day, hour, minute)));
         setContentView(R.layout.daily_classes_view);
-        sortItems();
+        //sortItems();
         displayDaily();
     }
 
