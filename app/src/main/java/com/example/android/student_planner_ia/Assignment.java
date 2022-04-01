@@ -6,7 +6,7 @@ import android.widget.TextView;
 import java.sql.Time;
 import java.util.Date;
 
-public class Assignment extends CalItem{
+public class Assignment{
 
     String name, classPeriod, key;
     Date dueDate;
@@ -18,10 +18,4 @@ public class Assignment extends CalItem{
 
         this.key = this.name + "Key";
     }
-
-    public void addTask(){
-
-    }
-
-
 }

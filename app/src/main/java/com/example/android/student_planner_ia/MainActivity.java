@@ -37,9 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     List<String> assignmentKeys, taskKeys;
 
-    boolean scheduleDone;
-    boolean isADay;
-    boolean isScheduleTemp;
+    boolean scheduleDone, isADay;
 
     String[] classNumbers, classPeriods, classKeys;
     int[] assignNum, taskNum;
@@ -55,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         currentDate = new Date();
         calendar = Calendar.getInstance();
 
+        //currentDate = new Date(2022, 5, 7);
         if (calendar.get(Calendar.DAY_OF_WEEK) == 2 || calendar.get(Calendar.DAY_OF_WEEK) == 4 || calendar.get(Calendar.DAY_OF_WEEK) == 7){
             isADay = true;
         }
@@ -62,9 +61,8 @@ public class MainActivity extends AppCompatActivity {
             isADay = false;
         }
         else if (calendar.get(Calendar.DAY_OF_WEEK) == 6){
-            // add full list of dates here
+            isADay = isFridayA();
         }
-
 
 
 
@@ -84,14 +82,9 @@ public class MainActivity extends AppCompatActivity {
         classPeriods = new String[8]; // 8 total school classes
         classKeys = new String[8];
 
-        classKeys[0] = "class0";
-        classKeys[1] = "class1";
-        classKeys[2] = "class2";
-        classKeys[3] = "class3";
-        classKeys[4] = "class4";
-        classKeys[5] = "class5";
-        classKeys[6] = "class6";
-        classKeys[7] = "class7";
+        for (int i = 0; i < classKeys.length; i++){
+            classKeys[i] = "class" + i;
+        }
 
         // 1st and 5th period occur everyday regardless of whether it is an A or B day
         classNumbers[0] = "1A/B";
@@ -109,8 +102,6 @@ public class MainActivity extends AppCompatActivity {
         assignNet = 0;
         taskNet = 0;
 
-        isScheduleTemp = true;
-        //isADay = true; // temporary declaration
         setABDay();
 
 
@@ -130,8 +121,8 @@ public class MainActivity extends AppCompatActivity {
                 classPeriods[i] = sharedPref.getString("class" + i, "Failed to retrieve class");
             }
 
-            assignNet = sharedPref.getInt("assignTotal", -1);
-            taskNet = sharedPref.getInt("taskTotal", -1);
+            assignNet = sharedPref.getInt("assignTotal", 0);
+            taskNet = sharedPref.getInt("taskTotal", 0);
             /*
             for (int i = 0; i < assignNet; i++){
                 Gson gson = new Gson();
@@ -209,12 +200,6 @@ public class MainActivity extends AppCompatActivity {
 
     // Following 3 methods concern main three menu screens
 
-    public void showCalendar(View view){
-
-
-        setContentView(R.layout.calendar_view);
-    }
-
     public void showDaily(View view){
         resetAssignments();
         LinearLayout dailyPeriods = (LinearLayout) findViewById(R.id.daily_periods);
@@ -263,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
         button5View.setText("5A/B - " + classPeriods[4] + "\n\n" + assignNum[4] + " assignments \t" + taskNum[4] + " tasks");
 
         Button allAssignmentView = (Button) findViewById(R.id.all_daily_assignments);
-        allAssignmentView.setText("View all Classes: \n\n" + assignNet + " assigments \t" + taskNet + " tasks");
+        allAssignmentView.setText("View all Classes: \n\n" + assignmentList.size() + " assigments \t" + assignNet + " tasks");
     }
 
     public void showAsList(View view){
@@ -345,6 +330,7 @@ public class MainActivity extends AppCompatActivity {
         assignmentList.add(new Assignment(setName, setPeriod, new Date(year, month, day, hour, minute)));
         setContentView(R.layout.daily_classes_view);
         //sortItems();
+        //sendItems();
         displayDaily();
     }
 
@@ -387,8 +373,28 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void sendItems(){
+        if (assignmentKeys != null){
+            assignmentKeys.clear();
+        }
+
+        assignNet = assignmentList.size();
+        editor.putInt("assignTotal", assignNet).apply();
+        int a = 0;
+        for (Assignment assignment : assignmentList){
+            Gson gson = new Gson();
+            assignmentKeys.add(gson.toJson(assignment));
+            editor.putString("assignKey" + a, assignmentKeys.get(a)).apply();
+            a++;
+
+        }
+    }
+
+
     public void sortItems(){
-        assignmentKeys.clear();
+        if (assignmentKeys != null){
+            assignmentKeys.clear();
+        }
         if (assignmentList.size() > 1) {
             Collections.sort(assignmentList, new Comparator<Assignment>() {
                 public int compare(Assignment a, Assignment b) {
@@ -423,5 +429,35 @@ public class MainActivity extends AppCompatActivity {
             t++;
         }
 
+    }
+
+    public Boolean isFridayA(){
+        Date [] aDays = new Date[19];
+        aDays[0] = new Date (2021, 8, 27);
+        aDays[1] = new Date (2021, 9, 3);
+        aDays[2] = new Date (2021, 9, 17);
+        aDays[3]= new Date (2021, 10, 1);
+        aDays[4] = new Date (2021, 10, 29);
+        aDays[5] = new Date (2021, 11, 12);
+        aDays[6] = new Date (2021, 12, 3);
+        aDays[7] = new Date (2021, 12, 17);
+        aDays[8] = new Date (2022, 1, 14);
+        aDays[9] = new Date (2022, 1, 21);
+        aDays[10] = new Date (2022, 2, 4);
+        aDays[11] = new Date (2022, 2, 18);
+        aDays[12] = new Date (2022, 2, 25);
+        aDays[13] = new Date (2022, 3, 11);
+        aDays[14] = new Date (2022, 4, 1);
+        aDays[15] = new Date (2022, 4, 22);
+        aDays[16] = new Date (2022, 5, 7);
+        aDays[17] = new Date (2022, 5, 20);
+        aDays[18] = new Date (2022, 5, 27);
+
+        for (int i = 0; i < aDays.length; i++){
+            if (currentDate.equals(aDays[i])){
+                return true;
+            }
+        }
+        return false;
     }
 }

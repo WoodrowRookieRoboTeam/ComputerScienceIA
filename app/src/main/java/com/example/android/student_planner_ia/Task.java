@@ -3,7 +3,7 @@ package com.example.android.student_planner_ia;
 import java.sql.Time;
 import java.util.Date;
 
-public class Task extends CalItem{
+public class Task{
 
     public String name, classPeriod, assignment, key;
     boolean isSorted;

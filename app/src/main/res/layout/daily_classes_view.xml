@@ -119,31 +119,22 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/calendar_button"
-                android:layout_width="135dp"
+                android:id="@+id/today_button"
+                android:layout_width="200dp"
                 android:layout_height="135dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentBottom="true"
-                android:onClick="showCalendar"
-                android:text="Calendar" />
-
-            <Button
-                android:id="@+id/today_button"
-                android:layout_width="135dp"
-                android:layout_height="135dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:onClick="showDaily"
-                android:text="Today" />
+                android:text="Today"
+                android:onClick="showDaily"/>
 
             <Button
                 android:id="@+id/list_button"
-                android:layout_width="135dp"
+                android:layout_width="200dp"
                 android:layout_height="135dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:onClick="showAsList"
-                android:text="List" />
+                android:text="List"
+                android:onClick="showAsList"/>
 
         </RelativeLayout>
 
