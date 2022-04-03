@@ -69,35 +69,40 @@
                     android:layout_width="300dp"
                     android:layout_height="100dp"
                     android:text=""
-                    android:textAlignment="textStart" />
+                    android:textAlignment="textStart"
+                    android:onClick="classButton1" />
 
                 <Button
                     android:id="@+id/button2"
                     android:layout_width="300dp"
                     android:layout_height="100dp"
                     android:text=""
-                    android:textAlignment="textStart" />
+                    android:textAlignment="textStart"
+                    android:onClick="classButton2" />
 
                 <Button
                     android:id="@+id/button3"
                     android:layout_width="300dp"
                     android:layout_height="100dp"
                     android:text=""
-                    android:textAlignment="textStart" />
+                    android:textAlignment="textStart"
+                    android:onClick="classButton3" />
 
                 <Button
                     android:id="@+id/button4"
                     android:layout_width="300dp"
                     android:layout_height="100dp"
                     android:text=""
-                    android:textAlignment="textStart" />
+                    android:textAlignment="textStart"
+                    android:onClick="classButton4" />
 
                 <Button
                     android:id="@+id/button5"
                     android:layout_width="300dp"
                     android:layout_height="100dp"
                     android:text=""
-                    android:textAlignment="textStart" />
+                    android:textAlignment="textStart"
+                    android:onClick="classButton5" />
 
                 <Button
                     android:id="@+id/all_daily_assignments"

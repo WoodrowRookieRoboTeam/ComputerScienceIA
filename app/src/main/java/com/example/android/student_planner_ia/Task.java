@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Task{
 
-    public String name, classPeriod, assignment, key;
+    public String name, assignment, key;
     boolean isSorted;
     Date dueDate;
 
@@ -13,9 +13,8 @@ public class Task{
         super();
     }
 
-    public Task(String name, String classPeriod, String assignment, Date dueDate){
+    public Task(String name, String assignment, Date dueDate){
         this.name = name;
-        this.classPeriod = classPeriod;
         this.assignment = assignment;
         this.dueDate = dueDate;
         isSorted = false;

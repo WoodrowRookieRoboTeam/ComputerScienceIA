@@ -46,35 +46,30 @@
 
         </LinearLayout>
 
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:layout_gravity="center" >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Assignments:"
+            android:textSize="24dp"
+            android:paddingLeft="15dp" />
 
-            <ListView
-                android:id="@+id/assignment_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+        <ListView
+            android:id="@+id/assignment_list"
+            android:layout_width="match_parent"
+            android:layout_height="175dp" />
 
-        </ScrollView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tasks:"
+            android:textSize="24dp"
+            android:paddingLeft="15dp" />
 
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:layout_gravity="center" >
+        <ListView
+            android:id="@+id/task_list"
+            android:layout_width="match_parent"
+            android:layout_height="175dp" />
 
-            <LinearLayout
-                android:id="@+id/task_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical" >
-
-
-
-            </LinearLayout>
-
-        </ScrollView>
 
         <RelativeLayout
             android:id="@+id/mainTabs"
@@ -89,8 +84,8 @@
                 android:layout_height="135dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentBottom="true"
-                android:text="Today"
-                android:onClick="showDaily"/>
+                android:onClick="showDaily"
+                android:text="Today" />
 
             <Button
                 android:id="@+id/list_button"
@@ -98,8 +93,8 @@
                 android:layout_height="135dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:text="List"
-                android:onClick="showAsList"/>
+                android:onClick="showAsList"
+                android:text="List" />
 
         </RelativeLayout>
 

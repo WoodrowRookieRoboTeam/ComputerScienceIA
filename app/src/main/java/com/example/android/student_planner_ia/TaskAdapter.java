@@ -9,15 +9,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class AssignmentAdapter extends ArrayAdapter<Assignment> {
+public class TaskAdapter extends ArrayAdapter<Task>{
 
-    public AssignmentAdapter(Context context, ArrayList<Assignment> item){
+    public TaskAdapter (Context context, ArrayList<Task> item){
         super(context, 0, item);
     }
 
     public View getView(int position, View convertView, ViewGroup parent){
 
-        Assignment assignment = getItem(position);
+        Task task = getItem(position);
 
         if (convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.assignment_cell, parent, false);
@@ -25,16 +25,15 @@ public class AssignmentAdapter extends ArrayAdapter<Assignment> {
 
         TextView cellName = (TextView) convertView.findViewById(R.id.cell_name);
         TextView cellDate = (TextView) convertView.findViewById(R.id.cell_date);
-        TextView cellPeriod = (TextView) convertView.findViewById(R.id.cell_period);
+        TextView cellAssociate = (TextView) convertView.findViewById(R.id.cell_period);
         TextView cellTime = (TextView) convertView.findViewById(R.id.cell_time);
 
-        cellName.setText(assignment.name);
-        cellDate.setText(assignment.dueDate.getDay() + "/" + (assignment.dueDate.getMonth() + 1) + "/" + assignment.dueDate.getYear());
-        cellPeriod.setText(assignment.classPeriod);
-        cellTime.setText(assignment.dueDate.getHours() + ":" + assignment.dueDate.getMinutes());
+        cellName.setText(task.name);
+        cellDate.setText(task.dueDate.getDay() + "/" + (task.dueDate.getMonth() + 1) + "/" + task.dueDate.getYear());
+        cellAssociate.setText(task.assignment);
+        cellTime.setText(task.dueDate.getHours() + ":" + task.dueDate.getMinutes());
 
         return convertView;
     }
-
 
 }
