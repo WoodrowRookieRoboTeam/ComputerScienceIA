@@ -8,14 +8,12 @@ import java.util.Date;
 
 public class Assignment{
 
-    String name, classPeriod, key;
+    String name, classPeriod;
     Date dueDate;
 
     public Assignment(String name, String classPeriod, Date dueDate){
         this.name = name;
         this.classPeriod = classPeriod;
         this.dueDate = dueDate;
-
-        this.key = this.name + "Key";
     }
 }

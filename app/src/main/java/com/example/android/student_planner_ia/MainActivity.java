@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     public List<Assignment> assignmentList;
     public List<Task> taskList;
 
-    boolean scheduleDone, isADay, taskClicked;
+    boolean scheduleDone, isADay;
 
     String[] classNumbers, classPeriods, classKeys;
     int[] assignNum, taskNum;
@@ -125,13 +125,14 @@ public class MainActivity extends AppCompatActivity {
             taskNet = sharedPref.getInt("taskTotal", 0);
 
             Gson gson = new Gson();
-            Type type = new TypeToken<ArrayList<String>>() {}.getType();
+            Type assignType = new TypeToken<ArrayList<Assignment>>() {}.getType();
+            Type taskType = new TypeToken<ArrayList<Task>>() {}.getType();
 
             String assignJson = sharedPref.getString("assignKey", "failed to retrieve assignments");
-            //assignmentList = gson.fromJson(assignJson, type);
+            assignmentList = gson.fromJson(assignJson, assignType);
 
             String taskJson = sharedPref.getString("taskKey", "failed to retrieve tasks");
-            //taskList = gson.fromJson(taskJson, type);
+            taskList = gson.fromJson(taskJson, taskType);
 
 
             sortItems();
@@ -139,8 +140,6 @@ public class MainActivity extends AppCompatActivity {
             displayDaily();
         }
     }
-
-
 
 
     // Following 2 methods concern creation and editing of schedule
@@ -168,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
         scheduleDone = true;
         editor.putBoolean("scheduleDone", true).apply();
+        sortItems();
 
         setContentView(R.layout.daily_classes_view);
         displayDaily();
@@ -181,11 +181,11 @@ public class MainActivity extends AppCompatActivity {
 
         Button cancelButton = (Button) findViewById(R.id.cancel_schedule);
         cancelButton.setVisibility(View.VISIBLE);
+
     }
 
 
     public void showDaily(View view){
-        LinearLayout dailyPeriods = (LinearLayout) findViewById(R.id.daily_periods);
         setContentView(R.layout.daily_classes_view);
         displayDaily();
     }
@@ -226,6 +226,9 @@ public class MainActivity extends AppCompatActivity {
 
         assignAdapter = new AssignmentAdapter(this, (ArrayList)aList);
         taskAdapter = new TaskAdapter(this, (ArrayList)tList);
+
+        assignAdapter.notifyDataSetChanged();
+        taskAdapter.notifyDataSetChanged();
 
         ListView assignLV = (ListView) findViewById(R.id.assignment_list);
         ListView taskLV = (ListView) findViewById(R.id.task_list);
@@ -299,29 +302,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void onAssignClick(AdapterView<?> adapterView, View view, int position, long l){
         lastAssign = position;
-        taskClicked = false;
+        assignmentList.remove(lastAssign);
+        sortItems();
+        setContentView(R.layout.daily_classes_view);
+        displayDaily();
     }
 
     public void onTaskClick(AdapterView<?> adapterView, View view, int position, long l){
         lastTask = position;
-        taskClicked = true;
+        taskList.remove(lastTask);
+        sortItems();
+        setContentView(R.layout.daily_classes_view);
+        displayDaily();
     }
-
-    public void removeItem(){
-        if (taskClicked == false){
-            assignmentList.remove(lastAssign);
-            assignAdapter.notifyDataSetChanged();
-        }
-        else{
-            taskList.remove(lastTask);
-            taskAdapter.notifyDataSetChanged();
-        }
-    }
-
-    public void removeItem(List<Assignment> aList, List<Task> bList){
-
-    }
-
 
     // Following methods concern item creation
 
@@ -404,6 +397,7 @@ public class MainActivity extends AppCompatActivity {
         }
         editor.putString("assignKey", gson.toJson(assignmentList)).apply();
         assignNet = assignmentList.size();
+        //assignAdapter.notifyDataSetChanged();
 
         if (taskList.size() > 1) {
             Collections.sort(taskList, new Comparator<Task>() {
@@ -414,6 +408,7 @@ public class MainActivity extends AppCompatActivity {
         }
         editor.putString("taskKey", gson.toJson(taskList)).apply();
         taskNet = taskList.size();
+        //taskAdapter.notifyDataSetChanged();
 
 
         // Recalculates number of assignments in each class

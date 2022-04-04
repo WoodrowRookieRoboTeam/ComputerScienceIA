@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class AssignmentAdapter extends ArrayAdapter<Assignment> {
         TextView cellTime = (TextView) convertView.findViewById(R.id.cell_time);
 
         cellName.setText(assignment.name);
-        cellDate.setText(assignment.dueDate.getDay() + "/" + (assignment.dueDate.getMonth() + 1) + "/" + assignment.dueDate.getYear());
+        cellDate.setText(assignment.dueDate.getDate() + "/" + (assignment.dueDate.getMonth() + 1) + "/" + assignment.dueDate.getYear());
         cellPeriod.setText(assignment.classPeriod);
         cellTime.setText(assignment.dueDate.getHours() + ":" + assignment.dueDate.getMinutes());
 

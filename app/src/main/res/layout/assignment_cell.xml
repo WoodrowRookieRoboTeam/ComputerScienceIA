@@ -17,7 +17,7 @@
 
             <TextView
                 android:id="@+id/cell_name"
-                android:layout_width="200dp"
+                android:layout_width="185dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:text="Name"
@@ -25,7 +25,7 @@
 
             <TextView
                 android:id="@+id/cell_date"
-                android:layout_width="100dp"
+                android:layout_width="115dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="Due Date"
@@ -40,7 +40,7 @@
 
             <TextView
                 android:id="@+id/cell_period"
-                android:layout_width="200dp"
+                android:layout_width="185dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:text="period/associate"
@@ -48,7 +48,7 @@
 
             <TextView
                 android:id="@+id/cell_time"
-                android:layout_width="100dp"
+                android:layout_width="115dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
@@ -60,12 +60,6 @@
 
 
     </LinearLayout>
-
-    <Button
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:text="Done"
-        android:onClick="removeItem"/>
 
 
 
