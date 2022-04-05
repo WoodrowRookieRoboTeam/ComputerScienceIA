@@ -31,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
 
-
-    //LinearLayout dailyPeriods;
     public List<Assignment> assignmentList;
     public List<Task> taskList;
 
@@ -54,35 +52,37 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        currentDate = new Date();
-        calendar = Calendar.getInstance();
+        currentDate = new Date(); // today's date
 
-        //currentDate = new Date(2022, 5, 7);
+        // following lines concern determining whether it is an A or B day
+        calendar = Calendar.getInstance();
         if (calendar.get(Calendar.DAY_OF_WEEK) == 2 || calendar.get(Calendar.DAY_OF_WEEK) == 4 || calendar.get(Calendar.DAY_OF_WEEK) == 7){
-            isADay = true;
+            isADay = true; // Mondays and Wednesdays are always A days, Saturday is set as A day for simplicity
         }
         else if (calendar.get(Calendar.DAY_OF_WEEK) == 1 || calendar.get(Calendar.DAY_OF_WEEK) == 3 || calendar.get(Calendar.DAY_OF_WEEK) == 5){
-            isADay = false;
+            isADay = false; // Tuesdays and Thursdays are always B days, Sunday is set as B day for simplicity
         }
         else if (calendar.get(Calendar.DAY_OF_WEEK) == 6){
-            isADay = isFridayA();
+            isADay = isFridayA(); // Fridays can be an A or B day depending on the date, method determines whether it's A or B
         }
 
 
         // Sets up shared preference
         sharedPref = getPreferences(Context.MODE_PRIVATE);
         editor = sharedPref.edit();
-        //sharedPref.edit().clear().commit();
+        //sharedPref.edit().clear().commit(); // Delete parenthesis if tester wishes to perform a total reset of the shared preferences
 
+        // Checks whether the user has entered their schedule or not
         scheduleDone = sharedPref.getBoolean("scheduleDone", false);
+
 
         // initialize all variables
         assignmentList = new ArrayList<Assignment>();
         taskList = new ArrayList<Task>();
 
         classNumbers = new String[8]; // 8 block periods
-        classPeriods = new String[8]; // 8 class names
-        classKeys = new String[8];
+        classPeriods = new String[8]; // each period has a name
+        classKeys = new String[8]; // each period requires a key for retrieval from shared preferences
 
         for (int i = 0; i < classKeys.length; i++){
             classKeys[i] = "class" + i;
@@ -101,29 +101,36 @@ public class MainActivity extends AppCompatActivity {
         // List of how many assignments and tasks there are for each class period
         assignNum = new int[8];
         taskNum = new int[8];
-        resetAssignments();
+        resetAssignments(); // Initializes both arrays as both
 
         assignNet = 0;
         taskNet = 0;
 
+        // These variables should not represent a plausible index by default
         lastAssign = -1;
         lastTask = -1;
         classClicked = -1;
 
 
-        if (scheduleDone == false){
+        // Begin running of app
+        if (scheduleDone == false){ // Code to run if the user has yet to input their schedule
+
             setContentView(R.layout.create_schedule);
             Button cancelButton = (Button) findViewById(R.id.cancel_schedule);
             cancelButton.setVisibility(View.INVISIBLE);
         }
-        else {
+        else { // code to run if the user has previously entered their schedule
+
+            // Retrieve class periods from last session
             for (int i = 0; i < classPeriods.length; i++){
                 classPeriods[i] = sharedPref.getString("class" + i, "Failed to retrieve class");
             }
 
+            // Retrieve number of assignments and tasks from last session
             assignNet = sharedPref.getInt("assignTotal", 0);
             taskNet = sharedPref.getInt("taskTotal", 0);
 
+            // Following nine lines concern retrieval of assignments and tasks
             Gson gson = new Gson();
             Type assignType = new TypeToken<ArrayList<Assignment>>() {}.getType();
             Type taskType = new TypeToken<ArrayList<Task>>() {}.getType();
@@ -135,15 +142,15 @@ public class MainActivity extends AppCompatActivity {
             taskList = gson.fromJson(taskJson, taskType);
 
 
-            sortItems();
-            setContentView(R.layout.daily_classes_view);
-            displayDaily();
+            sortItems(); // Updates all statistics surrounding number of assignments and tasks
+            setContentView(R.layout.daily_classes_view); // Sets view as daily view by default
+            displayDaily(); // adds text for each class
         }
     }
 
 
     // Following 2 methods concern creation and editing of schedule
-
+    // Saves inputs of user on create schedule screen, deletes data from prior schedule
     public void saveSchedule(View view){
         EditText[] getPeriods= new EditText[8];
 
@@ -158,21 +165,23 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i < classPeriods.length; i++) {
             classPeriods[i] = getPeriods[i].getText().toString();
-            editor.putString(classKeys[i], getPeriods[i].getText().toString()).apply();
+            editor.putString(classKeys[i], getPeriods[i].getText().toString()).apply(); // adds class periods to saved preferences
         }
 
-
+        // Removes old assignments and tasks
         assignmentList.clear();
         taskList.clear();
 
+
         scheduleDone = true;
-        editor.putBoolean("scheduleDone", true).apply();
+        editor.putBoolean("scheduleDone", true).apply(); // Schedule data has been inputed
         sortItems();
 
         setContentView(R.layout.daily_classes_view);
         displayDaily();
     }
 
+    // Changes view to create schedule upon user clicking "edit schedule" button
     public void resetSchedule(View view){
         setContentView(R.layout.create_schedule);
 
@@ -185,11 +194,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    // occurs upon press of "daily view" button
     public void showDaily(View view){
         setContentView(R.layout.daily_classes_view);
         displayDaily();
     }
 
+    // Adds all text to daily view
     public void displayDaily(){
         Button button1View = (Button) findViewById(R.id.button1);
         button1View.setText("1A/B - " + classPeriods[0] + "\n\n" + assignNum[0] + " assignments \t" + taskNum[0] + " tasks");
@@ -216,12 +227,15 @@ public class MainActivity extends AppCompatActivity {
         allAssignmentView.setText("View all Classes: \n\n" + assignNet + " assigments \t" + taskNet + " tasks");
     }
 
+
+    // Occurs on press of "show as list" button
     public void showAsList(View view){
         setContentView(R.layout.assignment_list_view);
 
         listItems(assignmentList, taskList);
     }
 
+    // Displays assignments and tasks in listview and sets up onItemClickListener
     public void listItems(List<Assignment> aList, List<Task> tList){
 
         assignAdapter = new AssignmentAdapter(this, (ArrayList)aList);
@@ -240,6 +254,8 @@ public class MainActivity extends AppCompatActivity {
         taskLV.setOnItemClickListener(this :: onTaskClick);
     }
 
+
+    // Following five methods simply track which of the 5 class period buttons was clicked
     public void classButton1(View view){
         classClicked = 0;
         listOneClass();
@@ -280,6 +296,7 @@ public class MainActivity extends AppCompatActivity {
         listOneClass();
     }
 
+    // Specifies data from a specific class to be displayed in listview
     public void listOneClass(){
         setContentView(R.layout.assignment_list_view);
 
@@ -300,6 +317,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    // Deletes assignment if clicked
     public void onAssignClick(AdapterView<?> adapterView, View view, int position, long l){
         lastAssign = position;
         assignmentList.remove(lastAssign);
@@ -308,6 +327,7 @@ public class MainActivity extends AppCompatActivity {
         displayDaily();
     }
 
+    // Deletes task if clicked
     public void onTaskClick(AdapterView<?> adapterView, View view, int position, long l){
         lastTask = position;
         taskList.remove(lastTask);
@@ -316,15 +336,14 @@ public class MainActivity extends AppCompatActivity {
         displayDaily();
     }
 
-    // Following methods concern item creation
 
+    // Occurs when "new assignment" button is clicked
     public void newAssignment(View view){
         setContentView(R.layout.edit_assignment);
 
-        Button createItem = (Button) findViewById(R.id.add_item);
-
     }
 
+    // Occurs when "save assignment" button is clicked - creates new assignment object
     public void saveAssignment(View view){
         EditText getName = (EditText) findViewById(R.id.assignment_name);
         EditText getPeriod = (EditText) findViewById(R.id.assignment_period);
@@ -347,10 +366,12 @@ public class MainActivity extends AppCompatActivity {
         displayDaily();
     }
 
+    // Occurs when "new task" button is clicked
     public void newTask(View view){
         setContentView(R.layout.edit_task);
     }
 
+    // Occurs when "save task" button is clicked - creates new task object
     public void saveTask(View view){
         EditText getName = (EditText) findViewById(R.id.task_name);
         EditText getAssociated = (EditText) findViewById(R.id.task_associated);
@@ -377,6 +398,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    // Resets total number of assignments
     public void resetAssignments(){
         for (int i = 0; i < 7; i++){
             assignNum[i] = 0;
@@ -384,6 +406,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Updates all data whenever any aspect of the class period schedule, assignment list, or task list is changed
     public void sortItems(){
         Gson gson = new Gson();
 
@@ -395,10 +418,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-        editor.putString("assignKey", gson.toJson(assignmentList)).apply();
-        assignNet = assignmentList.size();
-        //assignAdapter.notifyDataSetChanged();
+        editor.putString("assignKey", gson.toJson(assignmentList)).apply(); // Adds assignments to saved preferences
+        assignNet = assignmentList.size(); // Updates size of assignment list
 
+        // Sorts tasks by due date
         if (taskList.size() > 1) {
             Collections.sort(taskList, new Comparator<Task>() {
                 public int compare(Task a, Task b) {
@@ -406,9 +429,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-        editor.putString("taskKey", gson.toJson(taskList)).apply();
-        taskNet = taskList.size();
-        //taskAdapter.notifyDataSetChanged();
+        editor.putString("taskKey", gson.toJson(taskList)).apply(); // Adds tasks to saved preferences
+        taskNet = taskList.size(); // Updates size of task list
 
 
         // Recalculates number of assignments in each class

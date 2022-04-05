@@ -5,6 +5,8 @@ import java.util.Date;
 
 public class Task{
 
+    // class serves solely to store task attributes
+
     String name, assignment;
     Date dueDate;
 

@@ -8,6 +8,8 @@ import java.util.Date;
 
 public class Assignment{
 
+    // Class serves solely to store assignment attributes
+
     String name, classPeriod;
     Date dueDate;
 

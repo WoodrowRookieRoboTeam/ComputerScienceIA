@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class TaskAdapter extends ArrayAdapter<Task>{
+
     public TaskAdapter (Context context, ArrayList<Task> item){
         super(context, 0, item);
     }
